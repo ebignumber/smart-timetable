@@ -1,0 +1,47 @@
+# ========================
+# Node.js / Backend
+# ========================
+
+# Node modules
+backend/node_modules/
+# Logs
+backend/logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# Environment variables
+backend/.env
+# Debug / PID files
+backend/*.pid
+
+# ========================
+# React / Frontend
+# ========================
+
+# Node modules
+frontend/node_modules/
+# Build output
+frontend/build/
+# Environment variables
+frontend/.env
+# Logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+# Cache / temp files
+frontend/.cache/
+# Editor folders
+frontend/.vscode/
+
+# ========================
+# General / OS
+# ========================
+
+# macOS
+.DS_Store
+# Windows
+Thumbs.db
+# Optional: local IDE settings
+*.idea/
+*.sublime-project
+*.sublime-workspace
