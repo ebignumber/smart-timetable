@@ -7,6 +7,8 @@ import teacherRoutes from './routes/teachers.js';
 import subjectRoutes from './routes/subjects.js';
 import classroomRoutes from './routes/classrooms.js';
 import timetableRoutes from './routes/timetables.js'; // New timetable routes
+import authRoutes from './routes/auth.js';
+
 
 dotenv.config();
 
@@ -16,6 +18,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
 
 // Root route (fix for "Cannot GET /")
 app.get('/', (req, res) => {
@@ -27,6 +30,7 @@ app.use('/api/teachers', teacherRoutes);
 app.use('/api/subjects', subjectRoutes);
 app.use('/api/classrooms', classroomRoutes);
 app.use('/api/timetables', timetableRoutes); // Connect timetable routes
+app.use('/api/auth', authRoutes);
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })

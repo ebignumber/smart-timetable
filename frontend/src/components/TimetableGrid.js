@@ -1,15 +1,20 @@
 const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
-const TimetableGrid = ({ timetable, classes, slots, teachers, subjects, classrooms, updateCell, clearCell }) => {
+const TimetableGrid = ({ timetable, classes, slots, teachers, subjects, classrooms, updateCell, clearCell, periodTimings }) => {
   return (
     <div className="overflow-x-auto bg-white rounded shadow mt-2">
       <table className="w-full border-collapse">
         <thead>
-          <tr className="bg-gray-200">
-            <th className="border p-2">Class</th>
-            {slots.map(slot => <th key={slot} className="border p-2">{slot}</th>)}
-          </tr>
-        </thead>
+  <tr className="bg-gray-200">
+    <th className="border p-2">Class</th>
+    {slots.map(slot => (
+      <th key={slot} className="border p-2 text-center">
+        <div className="font-bold">{slot}</div>
+        <div className="text-xs text-gray-600">{periodTimings[slot]}</div>
+      </th>
+    ))}
+  </tr>
+</thead>
         <tbody>
           {classes.map(className => (
             <tr key={className}>
@@ -17,7 +22,7 @@ const TimetableGrid = ({ timetable, classes, slots, teachers, subjects, classroo
               {slots.map(slot => (
                 <td key={slot} className="border p-1">
                   {daysOfWeek.map(day => {
-                    const entry = timetable[className][slot][day] || {};
+                    const entry = timetable[className]?.[slot]?.[day] || {};
                     return (
                       <div key={day} className="flex flex-col gap-1 border-b pb-1">
                         <div className="font-bold text-xs">{day}</div>

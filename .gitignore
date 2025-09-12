@@ -10,7 +10,7 @@ backend/logs/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-# Environment variables
+# Environment variables (never push)
 backend/.env
 # Debug / PID files
 backend/*.pid
@@ -23,7 +23,7 @@ backend/*.pid
 frontend/node_modules/
 # Build output
 frontend/build/
-# Environment variables
+# Environment variables (never push)
 frontend/.env
 # Logs
 frontend/npm-debug.log*
@@ -32,6 +32,14 @@ frontend/yarn-debug.log*
 frontend/.cache/
 # Editor folders
 frontend/.vscode/
+
+# ========================
+# Dependency locks (keep these files in repo)
+# ========================
+
+# Uncomment below if you want to track them (recommended)
+# package-lock.json
+# yarn.lock
 
 # ========================
 # General / OS

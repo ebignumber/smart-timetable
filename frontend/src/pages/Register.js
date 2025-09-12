@@ -1,12 +1,14 @@
-// Login.js
+// Register.js
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-function Login() {
+function Register() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    usernameOrEmail: "",
+    username: "",
+    email: "",
     password: "",
+    confirmPassword: "",
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -20,12 +22,24 @@ function Login() {
     setError("");
     setSuccess("");
 
+    // Frontend validation
+    if (!formData.username || !formData.email || !formData.password) {
+      setError("All fields are required");
+      return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      // POST request to backend
+      const res = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          usernameOrEmail: formData.usernameOrEmail,
+          username: formData.username,
+          email: formData.email,
           password: formData.password,
         }),
       });
@@ -33,19 +47,19 @@ function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        // ✅ Save JWT token and login state in localStorage
+        // Save token and login state in localStorage
         localStorage.setItem("token", data.token);
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("username", data.user.username);
+        setSuccess("Registration successful! Redirecting...");
 
-        setSuccess("Login successful! Redirecting...");
-        setTimeout(() => navigate("/timetable"), 1000);
+        setTimeout(() => navigate("/timetable"), 1500);
       } else {
-        setError(data.message || "Invalid username/email or password");
+        setError(data.message || "Registration failed");
       }
     } catch (err) {
       console.error(err);
-      setError("Server error. Please try again later.");
+      setError("Server error. Try again later.");
     }
   };
 
@@ -53,7 +67,7 @@ function Login() {
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
         <h1 className="text-2xl font-bold mb-4 text-center">📅 Smart Timetable Generator</h1>
-        <h2 className="text-xl font-semibold mb-4 text-center">Login</h2>
+        <h2 className="text-xl font-semibold mb-4 text-center">Register</h2>
 
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
         {success && <p className="text-green-600 text-sm mb-2">{success}</p>}
@@ -61,9 +75,17 @@ function Login() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
-            name="usernameOrEmail"
-            placeholder="Username or Email"
-            value={formData.usernameOrEmail}
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            className="w-full border p-2 rounded"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={formData.email}
             onChange={handleChange}
             className="w-full border p-2 rounded"
           />
@@ -75,29 +97,31 @@ function Login() {
             onChange={handleChange}
             className="w-full border p-2 rounded"
           />
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            className="w-full border p-2 rounded"
+          />
           <button
             type="submit"
             className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
           >
-            Sign In
+            Sign Up
           </button>
         </form>
 
         <div className="mt-4 text-center text-sm">
-          <Link to="/forgot-password" className="text-gray-600 underline">
-            Forgot password?
-          </Link>
-        </div>
-
-        <div className="mt-4 text-center text-sm">
-          Don’t have an account?{" "}
-          <Link to="/register" className="text-blue-600 underline">
-            Sign up
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-600 underline">
+            Sign in
           </Link>
         </div>
 
         <div className="mt-4">
-          <p className="text-center text-gray-500">Or sign in with</p>
+          <p className="text-center text-gray-500">Or sign up with</p>
           <div className="flex justify-center gap-4 mt-2">
             <button className="border px-4 py-2 rounded">Google</button>
             <button className="border px-4 py-2 rounded">GitHub</button>
@@ -108,4 +132,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
