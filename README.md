@@ -1,3 +1,4 @@
+
 # Smart Timetable Generator
 
 A web-based timetable management system that allows schools/colleges to easily create, manage, and view timetables for teachers, classes, subjects, and rooms.
@@ -46,6 +47,7 @@ npm run dev
 Frontend will run at http://localhost:5173
 
 Backend will run at http://localhost:5000
+```
 
 💡 Usage
 
