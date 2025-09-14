@@ -31,20 +31,23 @@ smart-timetable/
 ```bash
 git clone https://github.com/<your-username>/smart-timetable.git
 cd smart-timetable
+```
 
-2. Setup Backend
+### 2. Setup Backend
+```bash
 cd backend
 npm install
 npm run dev
+```
 
-3. Setup Frontend
-
+### 3. Setup Frontend
 Open another terminal:
+```bash
 cd frontend
 npm install
 npm run dev
+```
 Frontend will run at http://localhost:5173
-
 Backend will run at http://localhost:5000
 
 💡 Usage
