@@ -30,7 +30,7 @@ const PeriodSettings = ({ periodTimings, setPeriodTimings }) => {
           onChange={(e) => setTiming(e.target.value)}
           className="border px-2 py-1 rounded"
         />
-        <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded">Add</button>
+        <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600">Add</button>
       </form>
 
       <ul>

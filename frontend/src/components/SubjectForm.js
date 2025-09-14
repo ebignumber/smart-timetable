@@ -21,15 +21,15 @@ const SubjectForm = ({ subjects, addSubject, deleteSubject, editSubject, classes
   };
 
   return (
-    <div className="bg-white shadow-md rounded p-4">
-      <h2 className="font-bold text-lg mb-2">Manage Subjects</h2>
+    <div className="p-4 bg-white rounded shadow-md">
+      <h2 className="mb-2 text-lg font-bold">Manage Subjects</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input
           type="text"
           placeholder="Subject Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border px-2 py-1 rounded"
+          className="px-2 py-1 border rounded"
           required
         />
         <input
@@ -37,15 +37,15 @@ const SubjectForm = ({ subjects, addSubject, deleteSubject, editSubject, classes
           placeholder="Class (e.g. 9A)"
           value={className}
           onChange={(e) => setClassName(e.target.value)}
-          className="border px-2 py-1 rounded"
+          className="px-2 py-1 border rounded"
           required
         />
-        <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded">Add Subject</button>
+        <button type="submit" className="px-2 py-1 text-white bg-blue-500 rounded hover:bg-blue-600">Add Subject</button>
       </form>
 
       <ul className="mt-3">
         {subjects.map((s, index) => (
-          <li key={s.name + s.className} className="flex justify-between items-center border-b py-1">
+          <li key={s.name + s.className} className="flex items-center justify-between py-1 border-b">
             <span>{s.name} — {s.className}</span>
             <div className="flex gap-2">
             <button
@@ -54,11 +54,11 @@ const SubjectForm = ({ subjects, addSubject, deleteSubject, editSubject, classes
     setClassName(s.className);
     setEditingIndex(index);
   }}
-  className="text-green-500 text-sm ml-2"
+  className="ml-2 text-sm text-green-500 hover:text-green-600"
 >
   Edit
 </button>
-            <button onClick={() => deleteSubject(s.name)} className="text-red-500 text-sm">Delete</button>
+            <button onClick={() => deleteSubject(s.name)} className="text-sm text-red-500 hover:text-red-600">Delete</button>
           
 </div>
 

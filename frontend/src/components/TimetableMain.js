@@ -273,9 +273,9 @@ function TimetableMain() {
   };
 
   return (
-    <div className="p-4 bg-gray-100 min-h-screen">
+    <div className="min-h-screen p-4 bg-gray-100">
       {/* Timetable manager header: choose/create/delete */}
-      <div className="mb-4 flex items-center gap-4">
+      <div className="flex items-center mb-4 gap-4">
         <label className="font-semibold">Your timetables:</label>
         <select
           value={selectedTimetableId || ""}
@@ -289,7 +289,7 @@ function TimetableMain() {
             }
             loadTimetable(id);
           }}
-          className="border p-2 rounded"
+          className="p-2 border rounded"
         >
           <option value="">-- Select timetable --</option>
           {timetableList.map((t) => (
@@ -306,7 +306,7 @@ function TimetableMain() {
             await createTimetable(name);
             await fetchTimetableList();
           }}
-          className="bg-blue-500 text-white px-3 py-1 rounded"
+          className="px-3 py-1 text-white bg-blue-500 rounded hover:bg-blue-600"
         >
           + New
         </button>
@@ -317,7 +317,7 @@ function TimetableMain() {
             await deleteTimetable(selectedTimetableId);
             await fetchTimetableList();
           }}
-          className="bg-red-500 text-white px-3 py-1 rounded"
+          className="px-3 py-1 text-white bg-red-500 rounded hover:bg-red-600"
         >
           Delete
         </button>
@@ -328,7 +328,7 @@ function TimetableMain() {
             placeholder="Rename selected timetable"
             value={selectedTimetableName}
             onChange={(e) => setSelectedTimetableName(e.target.value)}
-            className="border p-2 rounded mr-2"
+            className="p-2 mr-2 border rounded"
           />
           <button
             onClick={async () => {
@@ -353,7 +353,7 @@ function TimetableMain() {
                 alert("Rename failed");
               }
             }}
-            className="bg-yellow-500 text-white px-3 py-1 rounded"
+            className="px-3 py-1 text-white bg-yellow-500 rounded"
           >
             Rename
           </button>
@@ -367,7 +367,7 @@ function TimetableMain() {
         <PeriodSettings periodTimings={periodTimings} setPeriodTimings={setPeriodTimings} />
       </div>
 
-      <h2 className="text-xl font-bold mt-6 mb-2">Class-wise Editable Timetable</h2>
+      <h2 className="mt-6 mb-2 text-xl font-bold">Class-wise Editable Timetable</h2>
       <TimetableGrid
         timetable={timetable}
         classes={classes}
@@ -383,7 +383,7 @@ function TimetableMain() {
       <TimetableViews timetable={timetable} />
 
       <div className="mt-4">
-        <button onClick={exportCSV} className="bg-blue-500 text-white px-4 py-2 rounded">
+        <button onClick={exportCSV} className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">
           Export Timetable as CSV
         </button>
 
@@ -410,12 +410,12 @@ function TimetableMain() {
               setSaveStatus("Error saving timetable");
             }
           }}
-          className="bg-green-500 text-white px-4 py-2 rounded ml-2"
+          className="px-4 py-2 ml-2 text-white bg-green-500 rounded hover:bg-green-600"
         >
           Save Timetable
         </button>
 
-        {saveStatus && <p className="text-sm mt-2 text-gray-700">{saveStatus}</p>}
+        {saveStatus && <p className="mt-2 text-sm text-gray-700">{saveStatus}</p>}
       </div>
     </div>
   );

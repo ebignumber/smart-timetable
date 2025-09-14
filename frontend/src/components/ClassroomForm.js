@@ -29,15 +29,15 @@ const ClassroomForm = ({ classrooms, addClassroom, deleteClassroom, editClassroo
   };
 
   return (
-    <div className="bg-white shadow-md rounded p-4">
-      <h2 className="font-bold text-lg mb-2">Manage Classrooms</h2>
+    <div className="p-4 bg-white rounded shadow-md">
+      <h2 className="mb-2 text-lg font-bold">Manage Classrooms</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input
           type="text"
           placeholder="Classroom Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border px-2 py-1 rounded"
+          className="px-2 py-1 border rounded"
           required
         />
         <input
@@ -45,20 +45,20 @@ const ClassroomForm = ({ classrooms, addClassroom, deleteClassroom, editClassroo
           placeholder="Room Number"
           value={roomNumber}
           onChange={(e) => setRoomNumber(e.target.value)}
-          className="border px-2 py-1 rounded"
+          className="px-2 py-1 border rounded"
         />
-        <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded">
+        <button type="submit" className="px-2 py-1 text-white bg-blue-500 rounded hover:bg-blue-600">
           {editingId ? "Update Classroom" : "Add Classroom"}
         </button>
       </form>
 
       <ul className="mt-3">
         {classrooms.map(c => (
-          <li key={c.id} className="flex justify-between items-center border-b py-1">
+          <li key={c.id} className="flex items-center justify-between py-1 border-b">
             <span>{c.name} ({c.roomNumber})</span>
             <div className="flex gap-2">
-              <button onClick={() => handleEdit(c)} className="text-blue-500 text-sm">Edit</button>
-              <button onClick={() => deleteClassroom(c.id)} className="text-red-500 text-sm">Delete</button>
+              <button onClick={() => handleEdit(c)} className="text-sm text-blue-500 hover:text-blue-600">Edit</button>
+              <button onClick={() => deleteClassroom(c.id)} className="text-sm text-red-500 hover:text-red-600">Delete</button>
             </div>
           </li>
         ))}
