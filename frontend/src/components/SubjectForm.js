@@ -40,7 +40,7 @@ const SubjectForm = ({ subjects, addSubject, deleteSubject, editSubject, classes
           className="border px-2 py-1 rounded"
           required
         />
-        <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded">Add Subject</button>
+  <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 hover:shadow-md transition duration-150 ease-in-out">Add Subject</button>
       </form>
 
       <ul className="mt-3">
@@ -54,11 +54,11 @@ const SubjectForm = ({ subjects, addSubject, deleteSubject, editSubject, classes
     setClassName(s.className);
     setEditingIndex(index);
   }}
-  className="text-green-500 text-sm ml-2"
+  className="text-green-500 text-sm ml-2 hover:underline hover:text-green-700 transition duration-150 ease-in-out"
 >
   Edit
 </button>
-            <button onClick={() => deleteSubject(s.name)} className="text-red-500 text-sm">Delete</button>
+            <button onClick={() => deleteSubject(s.name)} className="text-red-500 text-sm hover:underline hover:text-red-700 transition duration-150 ease-in-out">Delete</button>
           
 </div>
 

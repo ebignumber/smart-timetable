@@ -52,7 +52,7 @@ const TimetableGrid = ({ timetable, classes, slots, teachers, subjects, classroo
                         </select>
                         <button
                           onClick={() => clearCell(className, slot, day)}
-                          className="text-xs text-red-600 underline mt-1"
+                          className="text-xs text-red-600 underline mt-1 hover:text-red-800 hover:font-semibold transition duration-150 ease-in-out"
                         >
                           Clear
                         </button>
