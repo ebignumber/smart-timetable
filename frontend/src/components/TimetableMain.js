@@ -306,7 +306,7 @@ function TimetableMain() {
             await createTimetable(name);
             await fetchTimetableList();
           }}
-          className="bg-blue-500 text-white px-3 py-1 rounded"
+          className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 hover:shadow-md transition duration-150 ease-in-out"
         >
           + New
         </button>
@@ -317,7 +317,7 @@ function TimetableMain() {
             await deleteTimetable(selectedTimetableId);
             await fetchTimetableList();
           }}
-          className="bg-red-500 text-white px-3 py-1 rounded"
+          className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 hover:shadow-md transition duration-150 ease-in-out"
         >
           Delete
         </button>
@@ -353,7 +353,7 @@ function TimetableMain() {
                 alert("Rename failed");
               }
             }}
-            className="bg-yellow-500 text-white px-3 py-1 rounded"
+            className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 hover:shadow-md transition duration-150 ease-in-out"
           >
             Rename
           </button>
@@ -383,7 +383,7 @@ function TimetableMain() {
       <TimetableViews timetable={timetable} />
 
       <div className="mt-4">
-        <button onClick={exportCSV} className="bg-blue-500 text-white px-4 py-2 rounded">
+        <button onClick={exportCSV} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hover:shadow-md transition duration-150 ease-in-out">
           Export Timetable as CSV
         </button>
 

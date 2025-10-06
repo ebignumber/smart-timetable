@@ -34,7 +34,7 @@ const Header = () => {
         ) : (
           <button
             onClick={handleLogout}
-            className="hover:underline bg-transparent border-none cursor-pointer"
+            className="hover:underline hover:text-blue-200 bg-transparent border-none cursor-pointer transition duration-150 ease-in-out"
           >
             Logout
           </button>
