@@ -1,0 +1,64 @@
+name: Lint Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # Frontend Lint
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Run ESLint on Frontend
+        id: eslint-frontend
+        working-directory: frontend
+        continue-on-error: true
+        run: |
+          npx eslint . --ext .js,.ts,.jsx,.tsx -f json -o eslint-results.json
+          npx eslint . --ext .js,.ts,.jsx,.tsx
+
+      # Backend Lint
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm ci
+
+      - name: Run ESLint on Backend
+        id: eslint-backend
+        working-directory: backend
+        continue-on-error: true
+        run: |
+          npx eslint . --ext .js,.ts,.jsx,.tsx -f json -o eslint-results.json
+          npx eslint . --ext .js,.ts,.jsx,.tsx
+
+      # Generate combined report
+      - name: Generate ESLint report
+        if: always()
+        run: node .github/scripts/generate-eslint-report.js
+
+      # Upload ESLint report
+      - name: Upload ESLint report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eslint-report
+          path: eslint-report.txt
+
+      # Comment on PR
+      - name: Comment on PR
+        if: always()
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          path: eslint-report.txt
