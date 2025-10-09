@@ -1,7 +1,8 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "jest": true
     },
     "extends": "airbnb",
     "parserOptions": {
@@ -9,5 +10,23 @@
         "sourceType": "module"
     },
     "rules": {
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-filename-extension": "off",
+        "react/prop-types": "off",
+        "react/button-has-type": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-noninteractive-element-interactions": "off",
+        "jsx-a11y/label-has-associated-control": "off",
+        "no-console": "warn",
+        "no-alert": "warn",
+        "no-underscore-dangle": "off",
+        "consistent-return": "off",
+        "no-restricted-syntax": "off",
+        "no-param-reassign": "off",
+        "no-unused-vars": "warn",
+        "max-len": "warn",
+        "no-continue": "off",
+        "guard-for-in": "off",
+        "react/no-array-index-key": "warn"
     }
 }
