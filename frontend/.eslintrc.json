@@ -40,5 +40,6 @@
         "indent": "warn",
         "no-shadow": "warn",
         "no-nested-ternary": "warn"
+        "react/no-array-index-key": "warn"
     }
 }

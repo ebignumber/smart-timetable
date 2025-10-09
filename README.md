@@ -23,10 +23,10 @@ A web-based timetable management system that allows schools/colleges to easily c
 smart-timetable/
 │── backend/ # Node.js + Express server
 │── frontend/ # React application
-│── README.md
-│── CONTRIBUTING.md
-│── CODE_OF_CONDUCT.md
-│── LICENSE
+│── [README.md](README.md)
+│── [CONTRIBUTING.md](CONTRIBUTING.md)
+│── [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+│── [LICENSE](LICENSE)
 
 ## ⚙️ Installation & Setup
 
