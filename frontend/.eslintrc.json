@@ -39,6 +39,6 @@
         "react/jsx-one-expression-per-line": "off",
         "indent": "warn",
         "no-shadow": "warn",
-    "no-nested-ternary": "warn"
+        "no-nested-ternary": "warn"
     }
 }
