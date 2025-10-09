@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const ClassroomForm = ({ classrooms, addClassroom, deleteClassroom, editClassroom }) => {
-  const [name, setName] = useState("");
-  const [roomNumber, setRoomNumber] = useState("");
+  const [name, setName] = useState('');
+  const [roomNumber, setRoomNumber] = useState('');
   const [editingId, setEditingId] = useState(null);
 
   const handleSubmit = (e) => {
@@ -18,8 +18,8 @@ const ClassroomForm = ({ classrooms, addClassroom, deleteClassroom, editClassroo
       addClassroom(data);
     }
 
-    setName("");
-    setRoomNumber("");
+    setName('');
+    setRoomNumber('');
   };
 
   const handleEdit = (c) => {
@@ -47,8 +47,8 @@ const ClassroomForm = ({ classrooms, addClassroom, deleteClassroom, editClassroo
           onChange={(e) => setRoomNumber(e.target.value)}
           className="border px-2 py-1 rounded"
         />
-  <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 hover:shadow-md transition duration-150 ease-in-out">
-          {editingId ? "Update Classroom" : "Add Classroom"}
+        <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 hover:shadow-md transition duration-150 ease-in-out">
+          {editingId ? 'Update Classroom' : 'Add Classroom'}
         </button>
       </form>
 

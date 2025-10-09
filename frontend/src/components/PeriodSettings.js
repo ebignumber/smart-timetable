@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const PeriodSettings = ({ periodTimings, setPeriodTimings }) => {
-  const [period, setPeriod] = useState("");
-  const [timing, setTiming] = useState("");
+  const [period, setPeriod] = useState('');
+  const [timing, setTiming] = useState('');
 
   const handleAdd = (e) => {
     e.preventDefault();
     if (!period || !timing) return;
     setPeriodTimings({ ...periodTimings, [period]: timing });
-    setPeriod("");
-    setTiming("");
+    setPeriod('');
+    setTiming('');
   };
 
   return (
@@ -30,7 +30,7 @@ const PeriodSettings = ({ periodTimings, setPeriodTimings }) => {
           onChange={(e) => setTiming(e.target.value)}
           className="border px-2 py-1 rounded"
         />
-  <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 hover:shadow-md transition duration-150 ease-in-out">Add</button>
+        <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 hover:shadow-md transition duration-150 ease-in-out">Add</button>
       </form>
 
       <ul>

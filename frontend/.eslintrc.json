@@ -17,6 +17,8 @@
         "jsx-a11y/click-events-have-key-events": "off",
         "jsx-a11y/no-noninteractive-element-interactions": "off",
         "jsx-a11y/label-has-associated-control": "off",
+        "jsx-a11y/control-has-associated-label": "off",
+        "react/jsx-props-no-spreading": "off",
         "no-console": "warn",
         "no-alert": "warn",
         "no-underscore-dangle": "off",
@@ -27,6 +29,16 @@
         "max-len": "warn",
         "no-continue": "off",
         "guard-for-in": "off",
-        "react/no-array-index-key": "warn"
+        "react/no-array-index-key": "warn",
+        "react/function-component-definition": "off",
+        "arrow-parens": "off",
+        "object-curly-newline": "off",
+        "comma-dangle": "off",
+        "no-trailing-spaces": "warn",
+        "semi": "warn",
+        "react/jsx-one-expression-per-line": "off",
+        "indent": "warn",
+        "no-shadow": "warn",
+        "no-nested-ternary": "warn"
     }
 }
