@@ -1,6 +1,6 @@
 const TimetableViews = ({ timetable }) => {
   const classes = Object.keys(timetable);
-  const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
   const renderClasswise = () => classes.map(c => (
     <div key={c} className="mb-6 p-4 bg-white rounded shadow">
@@ -20,11 +20,11 @@ const TimetableViews = ({ timetable }) => {
                 const entry = timetable[c][period][day] || {};
                 return (
                   <td key={day} className="border px-2 text-xs">
-                    {entry.subject || "-"} <br />
-                    {entry.teacher || "-"} <br />
-                    {entry.classroom || "-"}
+                    {entry.subject || '-'} <br />
+                    {entry.teacher || '-'} <br />
+                    {entry.classroom || '-'}
                   </td>
-                )
+                );
               })}
             </tr>
           ))}

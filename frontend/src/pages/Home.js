@@ -1,5 +1,5 @@
 // Home.js
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function Home() {
   return (
@@ -7,8 +7,8 @@ function Home() {
       className="flex flex-col items-center justify-center min-h-screen text-center px-6"
       style={{
         backgroundImage: "url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=80')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
       {/* Overlay */}

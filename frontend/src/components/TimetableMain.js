@@ -1,14 +1,14 @@
 // src/components/TimetableMain.js
-import { useState, useEffect } from "react";
-import ClassroomForm from "./ClassroomForm";
-import TeacherForm from "./TeacherForm";
-import SubjectForm from "./SubjectForm";
-import PeriodSettings from "./PeriodSettings";
-import TimetableGrid from "./TimetableGrid";
-import TimetableViews from "./TimetableViews";
-import LoadingSpinner from "./LoadingSpinner";
-import ErrorMessage from "./ErrorMessage";
-import SearchInput from "./SearchInput";
+import { useState, useEffect } from 'react';
+import ClassroomForm from './ClassroomForm';
+import TeacherForm from './TeacherForm';
+import SubjectForm from './SubjectForm';
+import PeriodSettings from './PeriodSettings';
+import TimetableGrid from './TimetableGrid';
+import TimetableViews from './TimetableViews';
+import LoadingSpinner from './LoadingSpinner';
+import ErrorMessage from './ErrorMessage';
+import SearchInput from './SearchInput';
 
 function TimetableMain() {
   const [classrooms, setClassrooms] = useState([]);
@@ -17,52 +17,50 @@ function TimetableMain() {
   const [classes, setClasses] = useState([]);
 
   const [periodTimings, setPeriodTimings] = useState({
-    Assembly: "08:00 - 08:20",
-    "Period 1": "08:20 - 09:00",
-    "Period 2": "09:00 - 09:40",
-    "Period 3": "09:40 - 10:20",
-    "Period 4": "10:20 - 11:00",
-    "Period 5": "11:00 - 11:40",
-    Recess: "11:40 - 12:00",
-    "Period 6": "12:00 - 12:40",
-    "Period 7": "12:40 - 01:20",
-    "Period 8": "01:20 - 02:00",
+    Assembly: '08:00 - 08:20',
+    'Period 1': '08:20 - 09:00',
+    'Period 2': '09:00 - 09:40',
+    'Period 3': '09:40 - 10:20',
+    'Period 4': '10:20 - 11:00',
+    'Period 5': '11:00 - 11:40',
+    Recess: '11:40 - 12:00',
+    'Period 6': '12:00 - 12:40',
+    'Period 7': '12:40 - 01:20',
+    'Period 8': '01:20 - 02:00',
   });
 
   const [timetable, setTimetable] = useState({});
-  const token = localStorage.getItem("token"); // JWT token
-  const [saveStatus, setSaveStatus] = useState("");
+  const token = localStorage.getItem('token'); // JWT token
+  const [saveStatus, setSaveStatus] = useState('');
   const [timetableList, setTimetableList] = useState([]); // saved timetables summaries
   const [selectedTimetableId, setSelectedTimetableId] = useState(null);
-  const [selectedTimetableName, setSelectedTimetableName] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedTimetableName, setSelectedTimetableName] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  const [errorMessage, setErrorMessage] = useState('');
+  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
   // Filter timetables based on search query
-  const filteredTimetables = timetableList.filter(timetable => 
-    timetable.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    new Date(timetable.updatedAt).toLocaleDateString().includes(searchQuery)
-  );
+  const filteredTimetables = timetableList.filter(timetable => timetable.name.toLowerCase().includes(searchQuery.toLowerCase())
+    || new Date(timetable.updatedAt).toLocaleDateString().includes(searchQuery));
 
   // Fetch list of timetables (summaries)
   const fetchTimetableList = async () => {
     setIsLoading(true);
-    setErrorMessage("");
+    setErrorMessage('');
     try {
-      const res = await fetch("http://localhost:5000/api/timetables", {
+      const res = await fetch('http://localhost:5000/api/timetables', {
         headers: { Authorization: `Bearer ${token}` },
       });
       const list = await res.json();
       if (res.ok) {
         setTimetableList(list);
       } else {
-        setErrorMessage("Failed to load timetables. Please try again.");
+        setErrorMessage('Failed to load timetables. Please try again.');
       }
     } catch (err) {
-      console.error("Error fetching timetable list:", err);
-      setErrorMessage("Unable to connect to server. Please check your internet connection.");
+      console.error('Error fetching timetable list:', err);
+      setErrorMessage('Unable to connect to server. Please check your internet connection.');
     } finally {
       setIsLoading(false);
     }
@@ -82,7 +80,7 @@ function TimetableMain() {
       const data = await res.json();
       if (res.ok) {
         setSelectedTimetableId(data._id);
-        setSelectedTimetableName(data.name || "");
+        setSelectedTimetableName(data.name || '');
         setClassrooms(data.classrooms || []);
         setTeachers(data.teachers || []);
         setSubjects(data.subjects || []);
@@ -90,22 +88,21 @@ function TimetableMain() {
 
         // Initialize timetable safely with filled structure
         const filledTimetable = {};
-        for (let className of (data.classes || [])) {
+        for (const className of (data.classes || [])) {
           filledTimetable[className] = {};
-          for (let slot of Object.keys(periodTimings)) {
+          for (const slot of Object.keys(periodTimings)) {
             filledTimetable[className][slot] = {};
-            for (let day of daysOfWeek) {
-              filledTimetable[className][slot][day] =
-                data.timetableData?.[className]?.[slot]?.[day] || {};
+            for (const day of daysOfWeek) {
+              filledTimetable[className][slot][day] = data.timetableData?.[className]?.[slot]?.[day] || {};
             }
           }
         }
         setTimetable(filledTimetable);
       } else {
-        console.error("Failed to load timetable:", data);
+        console.error('Failed to load timetable:', data);
       }
     } catch (err) {
-      console.error("Error loading timetable:", err);
+      console.error('Error loading timetable:', err);
     }
   };
 
@@ -113,10 +110,10 @@ function TimetableMain() {
   const createTimetable = async (name) => {
     if (!name) name = `Untitled ${new Date().toLocaleString()}`;
     try {
-      const res = await fetch("http://localhost:5000/api/timetables", {
-        method: "POST",
+      const res = await fetch('http://localhost:5000/api/timetables', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
@@ -141,27 +138,27 @@ function TimetableMain() {
         setClasses([]);
         setTimetable({});
       } else {
-        console.error("Create timetable failed:", data);
+        console.error('Create timetable failed:', data);
       }
     } catch (err) {
-      console.error("Error creating timetable:", err);
+      console.error('Error creating timetable:', err);
     }
   };
 
   // Delete timetable
   const deleteTimetable = async (id) => {
     if (!id) return;
-    if (!window.confirm("Delete this timetable? This cannot be undone.")) return;
+    if (!window.confirm('Delete this timetable? This cannot be undone.')) return;
     try {
       const res = await fetch(`http://localhost:5000/api/timetables/${id}`, {
-        method: "DELETE",
+        method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.ok) {
         await fetchTimetableList();
         if (id === selectedTimetableId) {
           setSelectedTimetableId(null);
-          setSelectedTimetableName("");
+          setSelectedTimetableName('');
           setTimetable({});
           setClassrooms([]);
           setTeachers([]);
@@ -170,10 +167,10 @@ function TimetableMain() {
         }
       } else {
         const data = await res.json();
-        console.error("Delete failed:", data);
+        console.error('Delete failed:', data);
       }
     } catch (err) {
-      console.error("Error deleting timetable:", err);
+      console.error('Error deleting timetable:', err);
     }
   };
 
@@ -182,9 +179,9 @@ function TimetableMain() {
     if (!selectedTimetableId) return; // nothing to update
     try {
       const res = await fetch(`http://localhost:5000/api/timetables/${selectedTimetableId}`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
@@ -198,7 +195,7 @@ function TimetableMain() {
       });
       return res;
     } catch (err) {
-      console.error("Error persisting timetable:", err);
+      console.error('Error persisting timetable:', err);
       throw err;
     }
   };
@@ -221,8 +218,7 @@ function TimetableMain() {
 
   const addClassroom = (data) => setClassrooms([...classrooms, data]);
   const deleteClassroom = (id) => setClassrooms(classrooms.filter((c) => c.id !== id));
-  const editClassroom = (id, updated) =>
-    setClassrooms(classrooms.map((c) => (c.id === id ? updated : c)));
+  const editClassroom = (id, updated) => setClassrooms(classrooms.map((c) => (c.id === id ? updated : c)));
 
   const addTeacher = (data) => setTeachers([...teachers, data]);
   const deleteTeacher = (name) => setTeachers(teachers.filter((t) => t.name !== name));
@@ -246,7 +242,7 @@ function TimetableMain() {
   };
 
   const updateCell = (className, period, day, data) => {
-    for (let c in timetable) {
+    for (const c in timetable) {
       if (c === className) continue;
       if (timetable[c][period] && timetable[c][period][day] && timetable[c][period][day].teacher === data.teacher) {
         alert(`Conflict: Teacher ${data.teacher} is already assigned to ${c} at ${period} on ${day}`);
@@ -275,20 +271,20 @@ function TimetableMain() {
   };
 
   const exportCSV = () => {
-    let csv = "Class,Period,Day,Subject,Teacher,Room\n";
-    for (let className in timetable) {
-      for (let period in timetable[className]) {
-        for (let day in timetable[className][period]) {
+    let csv = 'Class,Period,Day,Subject,Teacher,Room\n';
+    for (const className in timetable) {
+      for (const period in timetable[className]) {
+        for (const day in timetable[className][period]) {
           const { subject, teacher, room } = timetable[className][period][day];
-          csv += `${className},${period},${day},${subject || ""},${teacher || ""},${room || ""}\n`;
+          csv += `${className},${period},${day},${subject || ''},${teacher || ''},${room || ''}\n`;
         }
       }
     }
-    const blob = new Blob([csv], { type: "text/csv" });
+    const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.href = url;
-    a.download = `${selectedTimetableName || "timetable"}.csv`;
+    a.download = `${selectedTimetableName || 'timetable'}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -297,11 +293,11 @@ function TimetableMain() {
     <div className="p-4 bg-gray-100 min-h-screen">
       {/* Error Message */}
       {errorMessage && (
-        <ErrorMessage 
-          message={errorMessage} 
-          type="error" 
+        <ErrorMessage
+          message={errorMessage}
+          type="error"
           className="mb-4"
-          onClose={() => setErrorMessage("")}
+          onClose={() => setErrorMessage('')}
         />
       )}
 
@@ -309,20 +305,20 @@ function TimetableMain() {
       <div className="mb-4">
         <div className="flex items-center gap-4 mb-4">
           <label className="font-semibold">Your timetables:</label>
-          
+
           {/* Search Input */}
           <div className="flex-1 max-w-md">
             <SearchInput
               value={searchQuery}
               onChange={setSearchQuery}
               placeholder="Search timetables by name or date..."
-              onClear={() => setSearchQuery("")}
+              onClear={() => setSearchQuery('')}
             />
           </div>
-          
+
           <button
             onClick={async () => {
-              const name = window.prompt("New timetable name:");
+              const name = window.prompt('New timetable name:');
               if (!name) return;
               await createTimetable(name);
               await fetchTimetableList();
@@ -337,7 +333,7 @@ function TimetableMain() {
 
           <button
             onClick={async () => {
-              if (!selectedTimetableId) return alert("Select a timetable to delete");
+              if (!selectedTimetableId) return alert('Select a timetable to delete');
               await deleteTimetable(selectedTimetableId);
               await fetchTimetableList();
             }}
@@ -353,12 +349,12 @@ function TimetableMain() {
         {/* Timetable Selection */}
         <div className="flex items-center gap-4">
           <select
-            value={selectedTimetableId || ""}
+            value={selectedTimetableId || ''}
             onChange={(e) => {
               const id = e.target.value;
               if (!id) {
                 setSelectedTimetableId(null);
-                setSelectedTimetableName("");
+                setSelectedTimetableName('');
                 setTimetable({});
                 return;
               }
@@ -372,7 +368,7 @@ function TimetableMain() {
               <option disabled>Loading timetables...</option>
             ) : filteredTimetables.length === 0 ? (
               <option disabled>
-                {searchQuery ? "No timetables found matching your search" : "No timetables available"}
+                {searchQuery ? 'No timetables found matching your search' : 'No timetables available'}
               </option>
             ) : (
               filteredTimetables.map((t) => (
@@ -394,12 +390,12 @@ function TimetableMain() {
             />
             <button
               onClick={async () => {
-                if (!selectedTimetableId) return alert("Select a timetable to rename");
+                if (!selectedTimetableId) return alert('Select a timetable to rename');
                 try {
                   const res = await fetch(`http://localhost:5000/api/timetables/${selectedTimetableId}`, {
-                    method: "PUT",
+                    method: 'PUT',
                     headers: {
-                      "Content-Type": "application/json",
+                      'Content-Type': 'application/json',
                       Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify({ name: selectedTimetableName }),
@@ -408,11 +404,11 @@ function TimetableMain() {
                     await fetchTimetableList();
                   } else {
                     const data = await res.json();
-                    alert(data.message || "Rename failed");
+                    alert(data.message || 'Rename failed');
                   }
                 } catch (err) {
                   console.error(err);
-                  alert("Rename failed");
+                  alert('Rename failed');
                 }
               }}
               className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 hover:shadow-md transition duration-150 ease-in-out"
@@ -446,8 +442,8 @@ function TimetableMain() {
       <TimetableViews timetable={timetable} />
 
       <div className="mt-4">
-        <button 
-          onClick={exportCSV} 
+        <button
+          onClick={exportCSV}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hover:shadow-md transition duration-150 ease-in-out flex items-center"
         >
           <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -459,24 +455,24 @@ function TimetableMain() {
         <button
           onClick={async () => {
             if (!selectedTimetableId) {
-              const name = window.prompt("Enter name for this timetable (will be created):");
+              const name = window.prompt('Enter name for this timetable (will be created):');
               if (!name) return;
               await createTimetable(name);
               await fetchTimetableList();
               return;
             }
-            setSaveStatus("Saving...");
+            setSaveStatus('Saving...');
             try {
               const res = await persistTimetable();
               if (res && res.ok) {
-                setSaveStatus("Saved!");
-                setTimeout(() => setSaveStatus(""), 2000);
+                setSaveStatus('Saved!');
+                setTimeout(() => setSaveStatus(''), 2000);
                 await fetchTimetableList();
               } else {
-                setSaveStatus("Error saving timetable");
+                setSaveStatus('Error saving timetable');
               }
             } catch (err) {
-              setSaveStatus("Error saving timetable");
+              setSaveStatus('Error saving timetable');
             }
           }}
           className="bg-green-500 text-white px-4 py-2 rounded ml-2 hover:bg-green-600 hover:shadow-md transition duration-150 ease-in-out flex items-center"
@@ -489,13 +485,13 @@ function TimetableMain() {
 
         {saveStatus && (
           <div className="inline-flex items-center ml-4">
-            {saveStatus === "Saving..." ? (
+            {saveStatus === 'Saving...' ? (
               <>
                 <LoadingSpinner size="small" color="blue" className="mr-2" />
                 <span className="text-sm text-gray-700">{saveStatus}</span>
               </>
             ) : (
-              <span className={`text-sm ${saveStatus === "Saved!" ? "text-green-600" : "text-red-600"}`}>
+              <span className={`text-sm ${saveStatus === 'Saved!' ? 'text-green-600' : 'text-red-600'}`}>
                 {saveStatus}
               </span>
             )}

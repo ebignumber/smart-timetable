@@ -1,31 +1,29 @@
-import { useState } from "react";
-import FormField from "./FormField";
-import ErrorMessage from "./ErrorMessage";
+import { useState } from 'react';
+import FormField from './FormField';
+import ErrorMessage from './ErrorMessage';
 
 const TeacherForm = ({ addTeacher, deleteTeacher, editTeacher, teachers }) => {
-  const [name, setName] = useState("");
-  const [subjects, setSubjects] = useState("");
+  const [name, setName] = useState('');
+  const [subjects, setSubjects] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [errors, setErrors] = useState({});
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!name.trim()) {
-      newErrors.name = "Teacher name is required";
+      newErrors.name = 'Teacher name is required';
     } else if (name.length < 2) {
-      newErrors.name = "Teacher name must be at least 2 characters";
+      newErrors.name = 'Teacher name must be at least 2 characters';
     }
-    
+
     // Check for duplicate names (excluding current editing teacher)
-    const existingTeacher = teachers.find(t => 
-      t.name.toLowerCase() === name.toLowerCase() && t.id !== editingId
-    );
+    const existingTeacher = teachers.find(t => t.name.toLowerCase() === name.toLowerCase() && t.id !== editingId);
     if (existingTeacher) {
-      newErrors.name = "A teacher with this name already exists";
+      newErrors.name = 'A teacher with this name already exists';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -36,34 +34,34 @@ const TeacherForm = ({ addTeacher, deleteTeacher, editTeacher, teachers }) => {
     } else if (field === 'subjects') {
       setSubjects(value);
     }
-    
+
     // Clear error for this field when user starts typing
     if (errors[field]) {
-      setErrors({ ...errors, [field]: "" });
+      setErrors({ ...errors, [field]: '' });
     }
-    
+
     // Clear general error message
     if (errorMessage) {
-      setErrorMessage("");
+      setErrorMessage('');
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Clear previous error message
-    setErrorMessage("");
-    
+    setErrorMessage('');
+
     // Validate form
     if (!validateForm()) {
       return;
     }
 
     try {
-      const data = { 
-        id: editingId || Date.now(), 
-        name: name.trim(), 
-        subjects: subjects.split(",").map(s => s.trim()).filter(s => s.length > 0) 
+      const data = {
+        id: editingId || Date.now(),
+        name: name.trim(),
+        subjects: subjects.split(',').map(s => s.trim()).filter(s => s.length > 0)
       };
 
       if (editingId) {
@@ -73,43 +71,43 @@ const TeacherForm = ({ addTeacher, deleteTeacher, editTeacher, teachers }) => {
         addTeacher(data);
       }
 
-      setName("");
-      setSubjects("");
+      setName('');
+      setSubjects('');
       setErrors({});
     } catch (err) {
-      setErrorMessage("Failed to save teacher. Please try again.");
+      setErrorMessage('Failed to save teacher. Please try again.');
     }
   };
 
   const handleEdit = (t) => {
     setName(t.name);
-    setSubjects(t.subjects.join(", "));
+    setSubjects(t.subjects.join(', '));
     setEditingId(t.id);
     setErrors({});
-    setErrorMessage("");
+    setErrorMessage('');
   };
 
   const handleCancel = () => {
-    setName("");
-    setSubjects("");
+    setName('');
+    setSubjects('');
     setEditingId(null);
     setErrors({});
-    setErrorMessage("");
+    setErrorMessage('');
   };
 
   return (
     <div className="bg-white shadow-md rounded p-4">
       <h2 className="font-bold text-lg mb-2">Manage Teachers</h2>
-      
+
       {errorMessage && (
-        <ErrorMessage 
-          message={errorMessage} 
-          type="error" 
+        <ErrorMessage
+          message={errorMessage}
+          type="error"
           className="mb-4"
-          onClose={() => setErrorMessage("")}
+          onClose={() => setErrorMessage('')}
         />
       )}
-      
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <FormField
           label="Teacher Name"
@@ -121,7 +119,7 @@ const TeacherForm = ({ addTeacher, deleteTeacher, editTeacher, teachers }) => {
           error={errors.name}
           required
         />
-        
+
         <FormField
           label="Subjects"
           type="text"
@@ -131,17 +129,17 @@ const TeacherForm = ({ addTeacher, deleteTeacher, editTeacher, teachers }) => {
           placeholder="Math, Science, English (comma separated)"
           error={errors.subjects}
         />
-        
+
         <div className="flex gap-2">
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hover:shadow-md transition duration-150 ease-in-out flex-1"
           >
-            {editingId ? "Update Teacher" : "Add Teacher"}
+            {editingId ? 'Update Teacher' : 'Add Teacher'}
           </button>
-          
+
           {editingId && (
-            <button 
+            <button
               type="button"
               onClick={handleCancel}
               className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 hover:shadow-md transition duration-150 ease-in-out"
@@ -155,7 +153,7 @@ const TeacherForm = ({ addTeacher, deleteTeacher, editTeacher, teachers }) => {
       <ul className="mt-3">
         {teachers.map((t) => (
           <li key={t.id} className="flex justify-between items-center border-b py-1">
-            <span>{t.name} — {t.subjects.join(", ")}</span>
+            <span>{t.name} — {t.subjects.join(', ')}</span>
             <div className="flex gap-2">
               <button onClick={() => handleEdit(t)} className="text-yellow-500 text-sm hover:underline hover:text-yellow-700 transition duration-150 ease-in-out">Edit</button>
               <button onClick={() => deleteTeacher(t.id)} className="text-red-500 text-sm hover:underline hover:text-red-700 transition duration-150 ease-in-out">Delete</button>

@@ -2,7 +2,7 @@ import React from 'react';
 
 const ErrorMessage = ({ message, type = 'error', className = '', onClose }) => {
   const baseClasses = 'p-3 rounded-md flex items-center justify-between';
-  
+
   const typeClasses = {
     error: 'bg-red-50 border border-red-200 text-red-800',
     warning: 'bg-yellow-50 border border-yellow-200 text-yellow-800',

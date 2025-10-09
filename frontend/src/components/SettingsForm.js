@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const SettingsForm = ({ setSettings }) => {
   const [periodDuration, setPeriodDuration] = useState(60);

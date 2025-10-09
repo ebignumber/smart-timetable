@@ -1,71 +1,71 @@
 // Login.js
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import LoadingSpinner from "../components/LoadingSpinner";
-import ErrorMessage from "../components/ErrorMessage";
-import FormField from "../components/FormField";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../components/LoadingSpinner';
+import ErrorMessage from '../components/ErrorMessage';
+import FormField from '../components/FormField';
 
 function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    usernameOrEmail: "",
-    password: "",
+    usernameOrEmail: '',
+    password: '',
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    
+
     // Clear error for this field when user starts typing
     if (errors[name]) {
-      setErrors({ ...errors, [name]: "" });
+      setErrors({ ...errors, [name]: '' });
     }
-    
+
     // Clear general error message
     if (errorMessage) {
-      setErrorMessage("");
+      setErrorMessage('');
     }
   };
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.usernameOrEmail.trim()) {
-      newErrors.usernameOrEmail = "Username or email is required";
+      newErrors.usernameOrEmail = 'Username or email is required';
     }
-    
+
     if (!formData.password) {
-      newErrors.password = "Password is required";
+      newErrors.password = 'Password is required';
     } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
+      newErrors.password = 'Password must be at least 6 characters';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Clear previous messages
-    setErrorMessage("");
-    setSuccessMessage("");
-    
+    setErrorMessage('');
+    setSuccessMessage('');
+
     // Validate form
     if (!validateForm()) {
       return;
     }
-    
+
     setIsLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           usernameOrEmail: formData.usernameOrEmail,
           password: formData.password,
@@ -76,18 +76,18 @@ function Login() {
 
       if (res.ok) {
         // ✅ Save JWT token and login state in localStorage
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("username", data.user.username);
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('username', data.user.username);
 
-        setSuccessMessage("Login successful! Redirecting...");
-        setTimeout(() => navigate("/timetable"), 1000);
+        setSuccessMessage('Login successful! Redirecting...');
+        setTimeout(() => navigate('/timetable'), 1000);
       } else {
-        setErrorMessage(data.message || "Invalid username/email or password");
+        setErrorMessage(data.message || 'Invalid username/email or password');
       }
     } catch (err) {
       console.error(err);
-      setErrorMessage("Unable to connect to server. Please check your internet connection and try again.");
+      setErrorMessage('Unable to connect to server. Please check your internet connection and try again.');
     } finally {
       setIsLoading(false);
     }
@@ -100,18 +100,18 @@ function Login() {
         <h2 className="text-xl font-semibold mb-4 text-center">Login</h2>
 
         {errorMessage && (
-          <ErrorMessage 
-            message={errorMessage} 
-            type="error" 
+          <ErrorMessage
+            message={errorMessage}
+            type="error"
             className="mb-4"
-            onClose={() => setErrorMessage("")}
+            onClose={() => setErrorMessage('')}
           />
         )}
-        
+
         {successMessage && (
-          <ErrorMessage 
-            message={successMessage} 
-            type="success" 
+          <ErrorMessage
+            message={successMessage}
+            type="success"
             className="mb-4"
           />
         )}
@@ -127,7 +127,7 @@ function Login() {
             error={errors.usernameOrEmail}
             required
           />
-          
+
           <FormField
             label="Password"
             type="password"
@@ -138,7 +138,7 @@ function Login() {
             error={errors.password}
             required
           />
-          
+
           <button
             type="submit"
             disabled={isLoading}
@@ -150,7 +150,7 @@ function Login() {
                 Signing In...
               </>
             ) : (
-              "Sign In"
+              'Sign In'
             )}
           </button>
         </form>
@@ -162,7 +162,7 @@ function Login() {
         </div>
 
         <div className="mt-4 text-center text-sm">
-          Don’t have an account?{" "}
+          Don’t have an account?{' '}
           <Link to="/register" className="text-blue-600 underline">
             Sign up
           </Link>
