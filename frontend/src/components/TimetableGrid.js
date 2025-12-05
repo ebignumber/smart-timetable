@@ -1,33 +1,32 @@
-const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
-const TimetableGrid = ({ timetable, classes, slots, teachers, subjects, classrooms, updateCell, clearCell, periodTimings }) => {
-  return (
-    <div className="overflow-x-auto bg-white rounded shadow mt-2">
-      <table className="w-full border-collapse">
-        <thead>
-  <tr className="bg-gray-200">
-    <th className="border p-2">Class</th>
-    {slots.map(slot => (
-      <th key={slot} className="border p-2 text-center">
-        <div className="font-bold">{slot}</div>
-        <div className="text-xs text-gray-600">{periodTimings[slot]}</div>
-      </th>
-    ))}
-  </tr>
-</thead>
-        <tbody>
-          {classes.map(className => (
-            <tr key={className}>
-              <td className="border p-2 font-bold">{className}</td>
-              {slots.map(slot => (
-                <td key={slot} className="border p-1">
-                  {daysOfWeek.map(day => {
+const TimetableGrid = ({ timetable, classes, slots, teachers, subjects, classrooms, updateCell, clearCell, periodTimings }) => (
+  <div className="overflow-x-auto bg-white rounded shadow mt-2">
+    <table className="w-full border-collapse">
+      <thead>
+        <tr className="bg-gray-200">
+          <th className="border p-2">Class</th>
+          {slots.map(slot => (
+            <th key={slot} className="border p-2 text-center">
+              <div className="font-bold">{slot}</div>
+              <div className="text-xs text-gray-600">{periodTimings[slot]}</div>
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {classes.map(className => (
+          <tr key={className}>
+            <td className="border p-2 font-bold">{className}</td>
+            {slots.map(slot => (
+              <td key={slot} className="border p-1">
+                {daysOfWeek.map(day => {
                     const entry = timetable[className]?.[slot]?.[day] || {};
                     return (
                       <div key={day} className="flex flex-col gap-1 border-b pb-1">
                         <div className="font-bold text-xs">{day}</div>
                         <select
-                          value={entry.subject || ""}
+                          value={entry.subject || ''}
                           onChange={(e) => updateCell(className, slot, day, { ...entry, subject: e.target.value })}
                           className="border rounded p-1 text-xs"
                         >
@@ -35,7 +34,7 @@ const TimetableGrid = ({ timetable, classes, slots, teachers, subjects, classroo
                           {subjects.map(s => <option key={s.name} value={s.name}>{s.name}</option>)}
                         </select>
                         <select
-                          value={entry.teacher || ""}
+                          value={entry.teacher || ''}
                           onChange={(e) => updateCell(className, slot, day, { ...entry, teacher: e.target.value })}
                           className="border rounded p-1 text-xs"
                         >
@@ -43,7 +42,7 @@ const TimetableGrid = ({ timetable, classes, slots, teachers, subjects, classroo
                           {teachers.map(t => <option key={t.name} value={t.name}>{t.name}</option>)}
                         </select>
                         <select
-                          value={entry.classroom || ""}
+                          value={entry.classroom || ''}
                           onChange={(e) => updateCell(className, slot, day, { ...entry, classroom: e.target.value })}
                           className="border rounded p-1 text-xs"
                         >
@@ -52,21 +51,20 @@ const TimetableGrid = ({ timetable, classes, slots, teachers, subjects, classroo
                         </select>
                         <button
                           onClick={() => clearCell(className, slot, day)}
-                          className="text-xs text-red-600 underline mt-1"
+                          className="text-xs text-red-600 underline mt-1 hover:text-red-800 hover:font-semibold transition duration-150 ease-in-out"
                         >
                           Clear
                         </button>
                       </div>
                     );
                   })}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-};
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
 
 export default TimetableGrid;

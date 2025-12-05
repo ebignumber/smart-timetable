@@ -1,0 +1,57 @@
+
+D:\Contibutions\Proj2\frontend\src\components\SubjectForm.js
+  3:74  warning  'classes' is defined but never used  no-unused-vars
+
+D:\Contibutions\Proj2\frontend\src\components\TimetableGrid.js
+   3:1  warning  This line has a length of 128. Maximum allowed is 100  max-len
+  24:1  warning  Expected indentation of 18 spaces but found 20         indent
+  25:1  warning  Expected indentation of 18 spaces but found 20         indent
+  30:1  warning  This line has a length of 115. Maximum allowed is 100  max-len
+  38:1  warning  This line has a length of 115. Maximum allowed is 100  max-len
+  46:1  warning  This line has a length of 117. Maximum allowed is 100  max-len
+  50:1  warning  This line has a length of 117. Maximum allowed is 100  max-len
+  59:1  warning  Expected indentation of 18 spaces but found 20         indent
+  60:1  warning  Expected indentation of 16 spaces but found 18         indent
+
+D:\Contibutions\Proj2\frontend\src\components\TimetableMain.js
+   44:1   warning  This line has a length of 127. Maximum allowed is 100                    max-len
+   44:51  warning  'timetable' is already declared in the upper scope on line 32 column 10  no-shadow
+   62:7   warning  Unexpected console statement                                             no-console
+   96:1   warning  This line has a length of 107. Maximum allowed is 100                    max-len
+  102:9   warning  Unexpected console statement                                             no-console
+  105:7   warning  Unexpected console statement                                             no-console
+  141:9   warning  Unexpected console statement                                             no-console
+  144:7   warning  Unexpected console statement                                             no-console
+  151:10  warning  Unexpected confirm                                                       no-alert
+  170:9   warning  Unexpected console statement                                             no-console
+  173:7   warning  Unexpected console statement                                             no-console
+  198:7   warning  Unexpected console statement                                             no-console
+  206:11  warning  'id' is assigned a value but never used                                  no-unused-vars
+  217:1   warning  This line has a length of 107. Maximum allowed is 100                    max-len
+  221:1   warning  This line has a length of 107. Maximum allowed is 100                    max-len
+  247:1   warning  This line has a length of 116. Maximum allowed is 100                    max-len
+  248:9   warning  Unexpected alert                                                         no-alert
+  321:28  warning  Unexpected prompt                                                        no-alert
+  336:48  warning  Unexpected alert                                                         no-alert
+  367:14  warning  Do not nest ternary expressions                                          no-nested-ternary
+  393:50  warning  Unexpected alert                                                         no-alert
+  407:21  warning  Unexpected alert                                                         no-alert
+  410:19  warning  Unexpected console statement                                             no-console
+  411:19  warning  Unexpected alert                                                         no-alert
+  423:1   warning  This line has a length of 141. Maximum allowed is 100                    max-len
+  425:1   warning  This line has a length of 161. Maximum allowed is 100                    max-len
+  458:28  warning  Unexpected prompt                                                        no-alert
+
+D:\Contibutions\Proj2\frontend\src\pages\About.js
+   8:1  warning  This line has a length of 162. Maximum allowed is 100  max-len
+  22:1  warning  This line has a length of 220. Maximum allowed is 100  max-len
+  27:1  warning  This line has a length of 145. Maximum allowed is 100  max-len
+
+D:\Contibutions\Proj2\frontend\src\pages\Login.js
+  89:7  warning  Unexpected console statement  no-console
+
+D:\Contibutions\Proj2\frontend\src\pages\Register.js
+  107:7  warning  Unexpected console statement  no-console
+
+Γ£û 42 problems (0 errors, 42 warnings)
+  0 errors and 4 warnings potentially fixable with the `--fix` option.

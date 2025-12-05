@@ -1,0 +1,15 @@
+{
+  "projectName": "smart-timetable",
+  "projectOwner": "AadityaBansal01",
+  "repoType": "github",
+  "repoHost": "https://github.com/AadityaBansal01/smart-timetable",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [],
+  "contributorsPerLine": 7,
+  "linkToUsage": true
+}

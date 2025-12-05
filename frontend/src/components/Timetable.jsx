@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function Timetable({ timetable, days, slots }) {
   if (!timetable) return null;

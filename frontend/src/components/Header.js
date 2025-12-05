@@ -1,14 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    navigate("/");
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    navigate('/');
   };
 
   return (
@@ -16,7 +16,7 @@ const Header = () => {
       {/* Project Name / Logo */}
       <h1
         className="text-2xl font-bold cursor-pointer"
-        onClick={() => navigate("/")}
+        onClick={() => navigate('/')}
       >
         Smart Timetable Generator
       </h1>
@@ -34,7 +34,7 @@ const Header = () => {
         ) : (
           <button
             onClick={handleLogout}
-            className="hover:underline bg-transparent border-none cursor-pointer"
+            className="hover:underline hover:text-blue-200 bg-transparent border-none cursor-pointer transition duration-150 ease-in-out"
           >
             Logout
           </button>
